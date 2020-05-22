@@ -1,5 +1,6 @@
 package br.com.cezarcruz.dojomars.sercices;
 
+import br.com.cezarcruz.dojomars.domain.Bussola;
 import java.util.Arrays;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -51,7 +52,7 @@ public class WalkInMarsService {
           visaoAtual = viraDireita(visaoAtual);
         }
 
-        for (String[] lines : field) {
+        for (final String[] lines : field) {
           Arrays.fill(lines, null);
         }
 
@@ -75,28 +76,10 @@ public class WalkInMarsService {
   }
 
   private char viraDireita(char visaoAtual) {
-    if (visaoAtual == 'N') {
-      visaoAtual = 'E';
-    } else if (visaoAtual == 'E') {
-      visaoAtual = 'S';
-    } else if (visaoAtual == 'S') {
-      visaoAtual = 'W';
-    } else if (visaoAtual == 'W') {
-      visaoAtual = 'N';
-    }
-    return visaoAtual;
+    return Bussola.get(visaoAtual).getDireita();
   }
 
   private char viraEsquerda(char visaoAtual) {
-    if (visaoAtual == 'N') {
-      visaoAtual = 'W';
-    } else if (visaoAtual == 'W') {
-      visaoAtual = 'S';
-    } else if (visaoAtual == 'S') {
-      visaoAtual = 'E';
-    } else if (visaoAtual == 'E') {
-      visaoAtual = 'N';
-    }
-    return visaoAtual;
+    return Bussola.get(visaoAtual).getEsquerda();
   }
 }

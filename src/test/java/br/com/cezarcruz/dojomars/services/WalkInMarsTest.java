@@ -23,7 +23,7 @@ public class WalkInMarsTest {
 
   @ParameterizedTest
   @CsvSource({"MMMMMMMMMMMMMMMMMMMMMMMM,erro", "AAA,erro"})
-  public void shouldCantMove(final String input, final String expected) {
+  public void shouldNotMove(final String input, final String expected) {
     assertThat(walkInMarsService.walk(input), is(expected));
   }
 }
