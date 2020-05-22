@@ -17,7 +17,7 @@ public class Mars implements Place {
       return false;
     }
 
-    return x <= sizeX && y <= sizeY;
+    return x < sizeX && y < sizeY;
   }
 
   public static Place newPlace() {

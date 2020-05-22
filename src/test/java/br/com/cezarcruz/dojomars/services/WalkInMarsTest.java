@@ -24,8 +24,13 @@ public class WalkInMarsTest {
       "MML,'(0,2,W)'",
       "MML,'(0,2,W)'",
       "MMRMMRMM,'(2,0,S)'",
-      "MMMMMRMMMMMRMMMMMRMMMMMR,'(0,0,N)'",
+      "MMMMRMMMMRMMMMRMMMMR,'(0,0,N)'",
       "RRRR,'(0,0,N)'",
+      "MMRMMRMML,'(2,0,E)'",
+      "MMRMMRMM,'(2,0,S)'",
+      "MMRMMRMMR,'(2,0,W)'",
+      "MMMMRMMRMMLMMRMMRMMMRMLM, '(0,1,W)'",
+      "MMMMRMML, '(2,4,N)'",
   })
   public void shouldMove(final String input, final String expected) {
     assertThat(walkInMarsService.walk(input), is(expected));

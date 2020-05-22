@@ -27,7 +27,7 @@ public class RobotControllerTest {
       "MML,'(0,2,W)'",
       "MML,'(0,2,W)'",
       "MMRMMRMM,'(2,0,S)'",
-      "MMMMMRMMMMMRMMMMMRMMMMMR,'(0,0,N)'",
+      "MMMMRMMMMRMMMMRMMMMR,'(0,0,N)'",
       "RRRR,'(0,0,N)'"
   })
   public void shouldMove(final String input, final String expected) throws Exception {
@@ -42,7 +42,8 @@ public class RobotControllerTest {
       "MMMMMMMMMMMMMMMMMMMMMMMM",
       "LMM",
       "MMMMMM",
-      "MMMMMLM"
+      "MMMMMLM",
+      "MMMMRMMMMRMMMMRMMMMMR",
   })
   public void shouldNotMove(final String input) throws Exception {
 
