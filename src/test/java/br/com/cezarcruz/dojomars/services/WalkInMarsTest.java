@@ -16,13 +16,26 @@ public class WalkInMarsTest {
   private WalkInMarsService walkInMarsService;
 
   @ParameterizedTest
-  @CsvSource({"MM,'(0,2,N)'", "MML,'(0,2,W)'", "MML,'(0,2,W)'", "MMRMMRMM,'(2,0,S)'"})
+  @CsvSource({
+      "MM,'(0,2,N)'",
+      "MML,'(0,2,W)'",
+      "MML,'(0,2,W)'",
+      "MMRMMRMM,'(2,0,S)'",
+      "MMMMMRMMMMMRMMMMMRMMMMMR,'(0,0,N)'",
+      "RRRR,'(0,0,N)'"
+  })
   public void shouldMove(final String input, final String expected) {
     assertThat(walkInMarsService.walk(input), is(expected));
   }
 
   @ParameterizedTest
-  @CsvSource({"MMMMMMMMMMMMMMMMMMMMMMMM,erro", "AAA,erro", "LMM,erro"})
+  @CsvSource({
+      "MMMMMMMMMMMMMMMMMMMMMMMM,erro",
+      "AAA,erro",
+      "LMM,erro",
+      "MMMMMM,erro",
+      "MMMMMLM,erro"
+  })
   public void shouldNotMove(final String input, final String expected) {
     assertThat(walkInMarsService.walk(input), is(expected));
   }
