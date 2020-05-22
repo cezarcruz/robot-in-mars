@@ -9,7 +9,10 @@ public class WalkInMarsService {
 
   public String walk(final String command) {
 
-    if (StringUtils.isEmpty(command) || command.equalsIgnoreCase("AAA")) {
+    final String pattern = "^[rlmRLM]+$";
+
+    if (StringUtils.isEmpty(command)
+        || !command.matches(pattern)) {
       return "erro";
     }
 
