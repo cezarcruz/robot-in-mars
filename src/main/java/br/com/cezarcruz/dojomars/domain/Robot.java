@@ -1,5 +1,6 @@
 package br.com.cezarcruz.dojomars.domain;
 
+import br.com.cezarcruz.dojomars.exception.InvalidPositionException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class Robot {
     if (this.planet.canMove(newPosition.getX(), newPosition.getY())) {
       this.position = newPosition;
     } else {
-      throw new RuntimeException("Cant move to this place");
+      throw new InvalidPositionException("Cant move to this place");
     }
 
   }

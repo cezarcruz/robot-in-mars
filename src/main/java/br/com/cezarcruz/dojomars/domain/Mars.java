@@ -1,10 +1,8 @@
 package br.com.cezarcruz.dojomars.domain;
 
 import lombok.Builder;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
 @Builder
 @RequiredArgsConstructor
 public class Mars implements Place {
@@ -19,11 +17,7 @@ public class Mars implements Place {
       return false;
     }
 
-    if (x > sizeX || y > sizeY) {
-      return false;
-    }
-
-    return true;
+    return x <= sizeX && y <= sizeY;
   }
 
   public static Place newPlace() {

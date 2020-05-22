@@ -1,6 +1,7 @@
 package br.com.cezarcruz.dojomars.sercices;
 
 import br.com.cezarcruz.dojomars.domain.Robot;
+import br.com.cezarcruz.dojomars.exception.InvalidCommandException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,34 +20,29 @@ public class WalkInMarsService {
 
     if (StringUtils.isEmpty(command)
         || !command.matches(pattern)) {
-      return "erro";
+      throw new InvalidCommandException("Command invalid");
     }
 
-    try {
-      final Robot robot = Robot.inMars("Mars1");
+    final Robot robot = Robot.inMars("Mars1");
 
-      for (final Character c : command.toCharArray()) {
-        if (c.equals(MOVE)) {
-          robot.move();
-        }
-
-        if (c.equals(LEFT)) {
-          robot.turnLeft();
-        }
-
-        if (c.equals(RIGHT)) {
-          robot.turnRight();
-        }
-
+    for (final Character c : command.toCharArray()) {
+      if (c.equals(MOVE)) {
+        robot.move();
       }
 
-      return (String.format("(%s,%s,%s)", robot.getPosition().getX(), robot.getPosition().getY(), robot
-          .getPosition().getCompass().getActual()));
+      if (c.equals(LEFT)) {
+        robot.turnLeft();
+      }
 
-    } catch (final Exception e) {
-      log.error("generic error", e);
-      return "erro";
+      if (c.equals(RIGHT)) {
+        robot.turnRight();
+      }
+
     }
+
+    return (String.format("(%s,%s,%s)", robot.getPosition().getX(), robot.getPosition().getY(), robot
+            .getPosition().getCompass().getActual()));
+
   }
 
 }
