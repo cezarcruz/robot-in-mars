@@ -1,12 +1,17 @@
 package br.com.cezarcruz.dojomars.sercices;
 
-import br.com.cezarcruz.dojomars.domain.Bussola;
-import java.util.Arrays;
+import br.com.cezarcruz.dojomars.domain.Robot;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+@Slf4j
 @Service
 public class WalkInMarsService {
+
+  public static final char MOVE = 'M';
+  public static final char LEFT = 'L';
+  public static final char RIGHT = 'R';
 
   public String walk(final String command) {
 
@@ -18,68 +23,30 @@ public class WalkInMarsService {
     }
 
     try {
-
-      final String[][] field = new String[5][5];
-
-      char visaoAtual = 'N';
-      int posicaoAtualX = 0;
-      int posicaoAtualY = 0;
+      final Robot robot = Robot.inMars("Mars1");
 
       for (final Character c : command.toCharArray()) {
-        if (c.equals('M')) {
-          if (visaoAtual == 'N') {
-            posicaoAtualY = posicaoAtualY + 1;
-          }
-
-          if (visaoAtual == 'S') {
-            posicaoAtualY = posicaoAtualY - 1;
-          }
-
-          if (visaoAtual == 'W') {
-            posicaoAtualX = posicaoAtualX - 1;
-          }
-
-          if (visaoAtual == 'E') {
-            posicaoAtualX = posicaoAtualX + 1;
-          }
+        if (c.equals(MOVE)) {
+          robot.move();
         }
 
-        if (c.equals('L')) {
-          visaoAtual = viraEsquerda(visaoAtual);
+        if (c.equals(LEFT)) {
+          robot.turnLeft();
         }
 
-        if (c.equals('R')) {
-          visaoAtual = viraDireita(visaoAtual);
+        if (c.equals(RIGHT)) {
+          robot.turnRight();
         }
-
-        for (final String[] lines : field) {
-          Arrays.fill(lines, null);
-        }
-
-        field[posicaoAtualX][posicaoAtualY] = "robot";
 
       }
 
-      for (int i = 0; i < field.length; ++i) {
-        for (int j = 0; j < field[i].length; ++j) {
-          if ("robot".equalsIgnoreCase(field[i][j])) {
-            return (String.format("(%s,%s,%s)", i, j, visaoAtual));
-          }
-        }
-      }
+      return (String.format("(%s,%s,%s)", robot.getPosition().getX(), robot.getPosition().getY(), robot
+          .getPosition().getCompass().getActual()));
 
-      return "";
     } catch (final Exception e) {
-      e.printStackTrace();
+      log.error("generic error", e);
       return "erro";
     }
   }
 
-  private char viraDireita(char visaoAtual) {
-    return Bussola.get(visaoAtual).getDireita();
-  }
-
-  private char viraEsquerda(char visaoAtual) {
-    return Bussola.get(visaoAtual).getEsquerda();
-  }
 }
