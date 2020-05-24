@@ -4,11 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import br.com.cezarcruz.dojomars.exception.InvalidCommandException;
 import br.com.cezarcruz.dojomars.exception.InvalidPositionException;
-import br.com.cezarcruz.dojomars.sercices.WalkInMarsService;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,13 +30,14 @@ public class WalkInMarsTest {
       "MMRMMRMMR,'(2,0,W)'",
       "MMMMRMMRMMLMMRMMRMMMRMLM, '(0,1,W)'",
       "MMMMRMML, '(2,4,N)'",
+      "MMMML, '(0,4,W)'",
   })
   public void shouldMove(final String input, final String expected) {
     assertThat(walkInMarsService.walk(input), is(expected));
   }
 
   @ParameterizedTest
-  @CsvSource({
+  @ValueSource(strings = {
       "MMMMMMMMMMMMMMMMMMMMMMMM",
       "LMM",
       "MMMMMM",
@@ -50,13 +50,5 @@ public class WalkInMarsTest {
     assertThrows(InvalidPositionException.class, () -> walkInMarsService.walk(input));
   }
 
-  @ParameterizedTest
-  @CsvSource({
-      "AAA",
-      "ALL",
-      "VMM"
-  })
-  public void shouldVerifyInvalidParameters(final String input) {
-    assertThrows(InvalidCommandException.class, () -> walkInMarsService.walk(input));
-  }
+
 }
